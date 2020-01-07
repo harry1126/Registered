@@ -18,21 +18,21 @@ public class PasswordActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_password);
+
         pass = findViewById(R.id.password_fill);
-        Intent intent2 = getIntent();
+
         Button goEmailbutton = findViewById(R.id.goemailbutton);
         goEmailbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent3 = new Intent(PasswordActivity.this, EmailActivity.class);
                 startActivity(intent3);
-                String password = String.valueOf(pass);
-                SharedPreferences pref2 = getSharedPreferences("test1", MODE_PRIVATE);
-                pref2.edit()
-                        .putString("PASSWORD", password)
-                        .commit();
+                SharedPreferences pref = getSharedPreferences("test", MODE_PRIVATE);
+                pref.edit()
+                        .putString("PASSWORD", pass.getText().toString())
+                        .apply();
+                finish();
             }
-
         });
     }
 

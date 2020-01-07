@@ -15,25 +15,23 @@ public class MainActivity extends AppCompatActivity {
     private TextView username;
     private TextView password;
     private TextView mail;
-    private int REQUEST_CODE=100;
-    private Intent intent1;
-    private String userid;
-    private String passwordid;
-    private String emailid;
+    private int REQUEST_CODE_USERACTIVITY=100;
+    private Button button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         username = findViewById(R.id.username);
         password = findViewById(R.id.password);
         mail = findViewById(R.id.email);
-        Button button = findViewById(R.id.into);
+        button = findViewById(R.id.into);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent1 = new Intent(MainActivity.this, UsernameActivity.class);
-                startActivityForResult(intent1,REQUEST_CODE);
+                Intent intent1 = new Intent(MainActivity.this, UsernameActivity.class);
+                startActivityForResult(intent1,REQUEST_CODE_USERACTIVITY);
             }
         });
     }
@@ -41,20 +39,24 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if( requestCode == REQUEST_CODE) {
+        if( requestCode == REQUEST_CODE_USERACTIVITY) {
             if (resultCode != RESULT_OK) {
                 finish();
             }else{
-                userid = getSharedPreferences("test", MODE_PRIVATE)
-                        .getString("USER", "1");
-                passwordid = getSharedPreferences("test1", MODE_PRIVATE)
-                        .getString("PASSWORD", "1");
-                emailid = getSharedPreferences("test2", MODE_PRIVATE)
-                        .getString("EMAILBOX", "1");
-                username.setText(userid+"");
-                password.setText(passwordid+"");
-                mail.setText(emailid+"");
-                Log.d("MainActivity","name:"+userid+"");
+                String userid = getSharedPreferences("test", MODE_PRIVATE)
+                        .getString("USER", "");
+                String passwordid = getSharedPreferences("test", MODE_PRIVATE)
+                        .getString("PASSWORD", "");
+                String emailid = getSharedPreferences("test", MODE_PRIVATE)
+                        .getString("EMAILBOX", "");
+
+                username.setText(userid);
+                password.setText(passwordid);
+                mail.setText(emailid);
+                button.setVisibility(View.INVISIBLE);
+//                Log.d("MainActivity","name:"+userid+"");
+//                Log.d("MainActivity","password:"+passwordid+"");
+//                Log.d("MainActivity","email:"+emailid+"");
             }
 
         }

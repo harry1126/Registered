@@ -18,19 +18,16 @@ public class EmailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_email);
+
         email = findViewById(R.id.email_fill);
-        Intent intent4 = getIntent();
+
         Button gobackbutton = findViewById(R.id.goback);
         gobackbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent5 = new Intent(EmailActivity.this,MainActivity.class);
-                startActivity(intent5);
-                setResult(RESULT_OK);
-                String emailbox = String.valueOf(email) ;
-                SharedPreferences pref3 = getSharedPreferences("test2", MODE_PRIVATE);
-                pref3.edit()
-                        .putString("EMAILBOX", emailbox)
+                SharedPreferences pref = getSharedPreferences("test", MODE_PRIVATE);
+                pref.edit()
+                        .putString("EMAILBOX", email.getText().toString())
                         .commit();
                 finish();
             }
